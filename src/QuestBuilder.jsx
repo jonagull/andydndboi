@@ -7,7 +7,7 @@ import { quote, isoInDays, MIN_DAYS } from './pricing'
 // turns the choices into a pre-filled email. No backend needed.
 // ponytail: mailto hand-off, swap for a form service (Formspree etc.) if emails go missing.
 
-const START = { quest: null, size: '4', exp: 'mixed', heroes: null, classes: [], theme: null, tone: 50, where: null, date: '', name: '', notes: '' }
+const START = { quest: null, size: '4', exp: 'mixed', heroes: null, classes: [], theme: null, tone: 50, where: null, address: '', date: '', time: '', name: '', notes: '' }
 
 function Choice({ options, value, onPick, multi = false, small = false }) {
   return (
@@ -54,6 +54,7 @@ export default function QuestBuilder({ t, email, bookingUrl, dmName, initialDate
   const price = quote(a.quest, a.date)
   const priceText = price && `${t.price.fmt(price.price)}${a.quest === 'campaign' ? ` (${t.price.first})` : ''}`
 
+  const inPerson = a.where && a.where !== 'online'
   const summary = [
     [t.scroll.quest, label(q.quest.options, a.quest)],
     [t.scroll.party, `${a.size} · ${label(q.party.exp, a.exp)}`],
@@ -61,7 +62,8 @@ export default function QuestBuilder({ t, email, bookingUrl, dmName, initialDate
     [t.scroll.theme, label(q.theme.options, a.theme)],
     [t.scroll.tone, `${100 - a.tone}% ${q.tone.left} / ${a.tone}% ${q.tone.right}`],
     [t.scroll.where, a.where ? label(q.table.where, a.where) : '—'],
-    [t.scroll.date, a.date || '—'],
+    ...(inPerson ? [[t.scroll.address, a.address || '—']] : []),
+    [t.scroll.date, [a.date, a.time].filter(Boolean).join(' ') || '—'],
     ...(priceText ? [[t.scroll.price, priceText]] : []),
   ]
   const body = [
@@ -124,7 +126,9 @@ export default function QuestBuilder({ t, email, bookingUrl, dmName, initialDate
           <Choice options={q.table.where} value={a.where} onPick={set('where')} />
           <div className="qb-fields">
             <label>{q.table.date}<input type="date" min={isoInDays(MIN_DAYS)} value={a.date} onChange={(e) => set('date')(e.target.value)} /></label>
+            <label>{q.table.time}<input type="time" step={900} value={a.time} onChange={(e) => set('time')(e.target.value)} /></label>
             <p className="qb-price wide" aria-live="polite">{priceText || t.price.hint}</p>
+            {inPerson && <label className="wide">{q.table.address}<input type="text" maxLength={200} autoComplete="street-address" placeholder={q.table.addressPlaceholder} value={a.address} onChange={(e) => set('address')(e.target.value)} /></label>}
             <label>{q.table.name}<input type="text" maxLength={80} value={a.name} onChange={(e) => set('name')(e.target.value)} /></label>
             <label className="wide">{q.table.notes}<textarea rows={3} maxLength={1000} placeholder={q.table.notesPlaceholder} value={a.notes} onChange={(e) => set('notes')(e.target.value)} /></label>
           </div>

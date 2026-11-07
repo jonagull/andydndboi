@@ -9,10 +9,10 @@ import AvailabilityCalendar from './AvailabilityCalendar'
 gsap.registerPlugin(ScrollTrigger, useGSAP)
 
 // Edit these to make the page his.
+const BRAND = 'DinDM'
 const DM_NAME = 'Andreas'
 const DM_FULL_NAME = 'Andreas Flatekvål'
-const EMAIL = 'andreasfla@gmail.com'
-const CONTACT = `mailto:${EMAIL}?subject=I%20seek%20a%20Dungeon%20Master`
+const EMAIL = 'andreasersfla@gmail.com'
 const GIFT = `mailto:${EMAIL}?subject=Gift%20card%20order`
 // Paste a Cal.com / Calendly link here to show a "Pick a Time" button on the last wizard step.
 const BOOKING_URL = ''
@@ -25,7 +25,7 @@ function initialLang() {
     const saved = localStorage.getItem('lang')
     if (saved && T[saved]) return saved
   } catch { /* storage blocked */ }
-  return /^(nb|nn|no)\b/i.test(navigator.language) ? 'no' : 'en'
+  return 'no' // dindm.no: Norwegian audience, EN is one tap away
 }
 
 function D20({ value = 20, className = '' }) {
@@ -73,20 +73,24 @@ export default function App() {
   const [roll, setRoll] = useState(20)
   const [rollResult, setRollResult] = useState(null)
   const [pickedDate, setPickedDate] = useState('')
-  const embers = useRef(Array.from({ length: 40 }, (_, i) => i)).current
+  const embers = useRef(Array.from({ length: window.innerWidth < 600 ? 15 : 40 }, (_, i) => i)).current
 
   useEffect(() => {
     document.documentElement.lang = lang === 'no' ? 'nb' : 'en'
-    document.title = lang === 'no' ? `${DM_NAME} – Dungeon Master til leie` : `${DM_NAME} the Dungeon Master`
+    document.title = lang === 'no' ? `${BRAND} – Dungeon Master til leie` : `${BRAND} – Dungeon Master for hire`
     try { localStorage.setItem('lang', lang) } catch { /* storage blocked */ }
   }, [lang])
 
-  // Mobile book button shows only while the hero's own buttons are off screen
+  // Mobile book button shows only while the hero's own buttons are off screen…
   useEffect(() => {
-    const ctas = document.querySelector('.hero-ctas')
+    // …and hides again over the booking section so it never covers the wizard's buttons.
     const btn = document.querySelector('.sticky-cta')
-    const io = new IntersectionObserver(([e]) => btn.classList.toggle('show', !e.isIntersecting))
-    io.observe(ctas)
+    const visible = new Map()
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => visible.set(e.target, e.isIntersecting))
+      btn.classList.toggle('show', ![...visible.values()].some(Boolean))
+    })
+    document.querySelectorAll('.hero-ctas, #book').forEach((el) => io.observe(el))
     return () => io.disconnect()
   }, [])
 
@@ -199,7 +203,7 @@ export default function App() {
       </div>
 
       <nav className="nav">
-        <a href="#top" className="brand"><D20 className="brand-die" /> {DM_NAME} <em>{lang === 'no' ? '–' : 'the'}</em> DM</a>
+        <a href="#top" className="brand"><D20 className="brand-die" /> {BRAND}</a>
         <div className="nav-links">
           <a href="#parties">{t.nav.who}</a>
           <a href="#loot">{t.nav.what}</a>
@@ -382,7 +386,7 @@ export default function App() {
       <a href="#book" className="btn sticky-cta">{t.nav.book}</a>
 
       <footer className="footer">
-        <p>© {new Date().getFullYear()} {DM_FULL_NAME} · Dungeon Master · {t.footer.made}</p>
+        <p>© {new Date().getFullYear()} {BRAND} · {DM_FULL_NAME} · {t.footer.made}</p>
         <p className="fine">{t.footer.legal}</p>
       </footer>
     </div>

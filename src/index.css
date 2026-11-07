@@ -529,3 +529,6 @@ button.cal-day:hover { transform: translateY(-2px); background: rgba(212, 166, 7
   .qb-panel { min-height: 0; padding: 1.2rem 0.9rem; }
   .qb-panel h3 { font-size: 1.3rem; margin-bottom: 1rem; }
 }
+@media (max-width: 760px) {
+  .lang button { min-height: 40px; min-width: 44px; }
+}

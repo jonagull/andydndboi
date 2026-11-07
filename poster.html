@@ -1,36 +1,69 @@
 <!doctype html>
-<html lang="en">
+<html lang="nb">
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet" />
-    <title>Play D&D Poster</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Cinzel:wght@500;700&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet" />
+    <title>D&D Plakat</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     <style>
+      /* Same palette as the landing page (src/index.css). */
+      :root {
+        --ink: #0d0807; --parchment: #f1e4c8; --parchment-dim: #c9b68f;
+        --gold: #d4a64a; --gold-bright: #f5d27a; --crimson: #9e1b1b;
+      }
       @page { size: A4; margin: 0; }
       * { box-sizing: border-box; margin: 0; padding: 0; }
-      body { background: #ddd; font-family: 'EB Garamond', Georgia, serif; color: #111; }
+      html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      body { background: #333; font-family: 'EB Garamond', Georgia, serif; color: var(--parchment); }
       .sheet {
-        width: 210mm; height: 297mm; margin: 2rem auto; background: #fff;
-        display: flex; flex-direction: column; align-items: center; justify-content: center;
-        text-align: center; padding: 20mm; gap: 12mm;
-        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.15);
+        position: relative; overflow: hidden;
+        width: 210mm; height: 297mm; margin: 2rem auto;
+        background:
+          radial-gradient(ellipse at 50% 100%, rgba(212, 166, 74, 0.12), transparent 55%),
+          radial-gradient(ellipse at 50% 45%, rgba(158, 27, 27, 0.35), transparent 65%),
+          var(--ink);
+        display: flex; flex-direction: column; align-items: center; justify-content: flex-end;
+        text-align: center; padding: 22mm 20mm 24mm; gap: 8mm;
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
       }
-      .die { width: 34mm; height: 34mm; }
-      .d20-face { fill: none; stroke: #111; stroke-width: 2.5; stroke-linejoin: round; }
-      .d20-line { fill: none; stroke: #111; stroke-width: 1.2; opacity: 0.5; }
-      .d20-num { fill: #111; font-family: 'Cinzel', serif; font-weight: 700; font-size: 20px; text-anchor: middle; }
-      h1 { font-family: 'Cinzel', serif; font-weight: 700; font-size: 26mm; line-height: 1.05; }
-      .sub { font-size: 9mm; line-height: 1.35; }
-      #qr { padding: 4mm; border: 0.6mm solid #111; border-radius: 4mm; }
-      #qr img, #qr canvas { display: block; width: 55mm; height: 55mm; }
-      .scan { font-family: 'Cinzel', serif; font-size: 5.5mm; letter-spacing: 0.15em; text-transform: uppercase; }
-      .print { position: fixed; bottom: 1.5rem; right: 1.5rem; font: 600 1rem system-ui; padding: 0.8rem 1.4rem; border: 0; border-radius: 999px; background: #111; color: #fff; cursor: pointer; }
+      /* Kittelsen's Soria Moria fading into the dark, like the site's hero art. */
+      .art {
+        position: absolute; inset: 0 0 auto; height: 135mm;
+        background: url('/art/pd/soria-moria.jpg') center 30% / cover;
+        -webkit-mask-image: linear-gradient(#000 40%, transparent);
+        mask-image: linear-gradient(#000 40%, transparent);
+        opacity: 0.75;
+      }
+      /* Double gold frame */
+      .sheet::before, .sheet::after { content: ''; position: absolute; pointer-events: none; border: 0.5mm solid var(--gold); }
+      .sheet::before { inset: 8mm; }
+      .sheet::after { inset: 10mm; border-width: 0.25mm; opacity: 0.6; }
+      .sheet > :not(.art) { position: relative; }
+      .die { width: 26mm; height: 26mm; filter: drop-shadow(0 0 4mm rgba(245, 210, 122, 0.5)); }
+      .d20-face { fill: var(--ink); stroke: var(--gold-bright); stroke-width: 2.5; stroke-linejoin: round; }
+      .d20-line { fill: none; stroke: var(--gold); stroke-width: 1.2; opacity: 0.6; }
+      .d20-num { fill: var(--gold-bright); font-family: 'Cinzel', serif; font-weight: 700; font-size: 20px; text-anchor: middle; }
+      h1 {
+        font-family: 'Cinzel Decorative', serif; font-weight: 900; font-size: 19mm; line-height: 1.05;
+        color: var(--gold-bright); text-shadow: 0 0 6mm rgba(245, 210, 122, 0.35), 0 1mm 0 #000;
+      }
+      .rule { width: 60mm; height: 0.4mm; background: linear-gradient(90deg, transparent, var(--gold), transparent); }
+      .sub { font-size: 8mm; line-height: 1.35; }
+      .sub em { color: var(--parchment-dim); }
+      /* QR stays dark-on-light so every phone can read it. */
+      #qr { padding: 3.5mm; background: var(--parchment); border: 0.8mm solid var(--gold); box-shadow: 0 0 0 1.5mm var(--ink), 0 0 0 1.9mm var(--gold); }
+      #qr img, #qr canvas { display: block; width: 50mm; height: 50mm; }
+      .scan { font-family: 'Cinzel', serif; font-size: 5mm; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); }
+      .scan { display: grid; gap: 1mm; }
+      .scan span { font-family: 'EB Garamond', serif; font-style: italic; text-transform: none; letter-spacing: 0; font-size: 5.5mm; color: var(--parchment-dim); }
+      .scan b { font-size: 8mm; letter-spacing: 0.1em; color: var(--gold-bright); }
+      .print { position: fixed; bottom: 1.5rem; right: 1.5rem; font: 600 1rem system-ui; padding: 0.8rem 1.4rem; border: 0; border-radius: 999px; background: var(--gold); color: var(--ink); cursor: pointer; }
       @media print {
-        body { background: #fff; }
+        body { background: none; }
         .sheet { margin: 0; box-shadow: none; }
         .print { display: none; }
       }
@@ -38,23 +71,25 @@
   </head>
   <body>
     <div class="sheet">
+      <div class="art" aria-hidden="true"></div>
       <svg class="die" viewBox="0 0 100 100" aria-hidden="true">
         <polygon points="50,3 93,27 93,73 50,97 7,73 7,27" class="d20-face" />
         <polygon points="50,24 79,70 21,70" class="d20-line" />
         <path d="M50,3 L50,24 M93,27 L79,70 M93,27 L50,24 M93,73 L79,70 M50,97 L79,70 M50,97 L21,70 M7,73 L21,70 M7,27 L21,70 M7,27 L50,24" class="d20-line" />
         <text x="50" y="59" class="d20-num">20</text>
       </svg>
-      <h1>Want to play D&amp;D?</h1>
-      <p class="sub">Never played? Perfect.<br />Nothing to learn. Nothing to bring.</p>
+      <h1>Lyst til å spille D&amp;D?</h1>
+      <div class="rule"></div>
+      <p class="sub">Små grupper, maks 8 spillere.<br /><em>Aldri spilt før? Helt greit. Jeg tar med alt.</em></p>
       <div id="qr"></div>
-      <p class="scan">Scan to see how easy it is</p>
+      <p class="scan">Skann koden<span>eller</span><b>dindm.no</b></p>
     </div>
-    <button class="print" onclick="print()">Print</button>
+    <button class="print" onclick="print()">Skriv ut</button>
 
     <script>
-      // ponytail: localhost is useless on a phone. Swap for the real domain before printing.
-      const TARGET = location.origin + '/guide.html'
-      new QRCode(document.getElementById('qr'), { text: TARGET, width: 512, height: 512, correctLevel: QRCode.CorrectLevel.M })
+      const TARGET = 'https://dindm.no'
+      // Dark modules on parchment: keeps the poster's look and still scans.
+      new QRCode(document.getElementById('qr'), { text: TARGET, width: 512, height: 512, colorDark: '#0d0807', colorLight: '#f1e4c8', correctLevel: QRCode.CorrectLevel.M })
     </script>
   </body>
 </html>
