@@ -1,0 +1,256 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="How to play D&D: the Dungeon Master tells you what's happening, you say what you do. That's it." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet" />
+    <title>How to Play</title>
+    <!-- ponytail: standalone page on purpose, no React/GSAP. Shares palette + fonts with src/index.css by copy. -->
+    <style>
+      :root {
+        --ink: #0d0807; --ink-2: #17100c;
+        --parchment: #f1e4c8; --parchment-dim: #b9a888;
+        --gold: #d4a64a; --gold-bright: #f5d27a; --ember: #ff9a5c;
+        --heading: 'Cinzel', serif; --body: 'EB Garamond', Georgia, serif;
+      }
+      * { box-sizing: border-box; margin: 0; padding: 0; }
+      body {
+        background: var(--ink); color: var(--parchment);
+        font-family: var(--body); font-size: 1.3rem; line-height: 1.7;
+        background-image: radial-gradient(ellipse at 50% 0%, rgba(158, 27, 27, 0.18), transparent 55%);
+      }
+      a { color: var(--gold-bright); }
+      :focus-visible { outline: 2px solid var(--gold-bright); outline-offset: 4px; }
+      h1, h2 { font-family: var(--heading); font-weight: 700; line-height: 1.2; color: var(--gold-bright); }
+      h1 { font-size: clamp(2.2rem, 8vw, 3.6rem); }
+      h2 { font-size: clamp(1.5rem, 5vw, 2rem); margin-bottom: 1.2rem; }
+      .dim { color: var(--parchment-dim); }
+
+      .back { display: inline-block; margin: 1.5rem 16px 0; font-family: var(--heading); font-size: 0.85rem; text-decoration: none; opacity: 0.7; }
+      .wrap { max-width: 640px; margin: 0 auto; padding: 0 16px; }
+      section { padding: 5rem 0; }
+
+      .hero { text-align: center; padding-top: 4rem; }
+      .hero p { margin-top: 1.2rem; font-size: 1.45rem; }
+
+      /* The loop */
+      .loop { list-style: none; display: grid; gap: 0; }
+      .loop li { display: grid; grid-template-columns: 3.2rem 1fr; gap: 1rem; align-items: start; }
+      .loop .who { width: 3.2rem; height: 3.2rem; border-radius: 50%; display: grid; place-items: center; font-size: 1.5rem; background: var(--ink-2); border: 1px solid rgba(212, 166, 74, 0.35); }
+      .loop .label { font-family: var(--heading); font-size: 0.8rem; letter-spacing: 0.12em; color: var(--gold); text-transform: uppercase; }
+      .loop .say { font-size: 1.35rem; }
+      .loop .eg { font-style: italic; color: var(--parchment-dim); font-size: 1.15rem; }
+      .loop .arrow { grid-column: 1; text-align: center; color: var(--gold); opacity: 0.5; padding: 0.4rem 0; font-size: 1.2rem; }
+      .loop li.you .who { border-color: rgba(255, 154, 92, 0.5); }
+      .loop li.you .label { color: var(--ember); }
+      .repeat { margin-top: 1.5rem; text-align: center; font-family: var(--heading); color: var(--gold); }
+
+      /* Who does what */
+      .split { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+      @media (max-width: 560px) { .split { grid-template-columns: 1fr; } }
+      .col { background: var(--ink-2); border-radius: 10px; padding: 1.4rem; }
+      .col h3 { font-family: var(--heading); font-size: 1rem; margin-bottom: 0.8rem; color: var(--gold); }
+      .col.you h3 { color: var(--ember); }
+      .col ul { list-style: none; display: grid; gap: 0.35rem; font-size: 1.15rem; }
+      .col.dm li { color: var(--parchment-dim); }
+      .col.you li { font-size: 1.4rem; }
+
+      /* Example */
+      .chat { display: grid; gap: 1rem; }
+      .chat p { padding: 1rem 1.2rem; background: var(--ink-2); border-radius: 10px; max-width: 90%; }
+      .chat p.you { justify-self: end; background: #241510; }
+      .chat b { display: block; font-family: var(--heading); font-size: 0.75rem; letter-spacing: 0.12em; color: var(--gold); }
+      .chat p.you b { color: var(--ember); }
+
+      /* Try it */
+      .choices { display: grid; gap: 0.6rem; margin-top: 1.2rem; }
+      .choices button, .again {
+        font: inherit; font-size: 1.2rem; text-align: left; cursor: pointer;
+        padding: 0.9rem 1.2rem; border-radius: 10px; color: var(--parchment);
+        background: transparent; border: 1px solid rgba(255, 154, 92, 0.45);
+      }
+      .choices button:hover, .again:hover { background: #241510; }
+      .again { display: block; margin: 1.5rem auto 0; text-align: center; }
+      .die-btn {
+        display: flex; flex-direction: column; align-items: center; gap: 0.4rem; margin: 1.5rem auto 0;
+        background: none; border: none; cursor: pointer; color: var(--gold);
+        font-family: var(--heading); font-size: 0.85rem; letter-spacing: 0.12em; text-transform: uppercase;
+      }
+      .die-btn[hidden], .again[hidden], .choices[hidden] { display: none; }
+      .die { width: 120px; height: 120px; filter: drop-shadow(0 0 14px rgba(212, 166, 74, 0.45)); animation: pulse 1.6s ease-in-out infinite; }
+      .die.spin { animation: spin 0.6s ease-out; }
+      @keyframes pulse { 50% { transform: scale(1.06); } }
+      @keyframes spin { to { transform: rotate(720deg); } }
+      @media (prefers-reduced-motion: reduce) { .die, .die.spin { animation: none; } }
+      .d20-face { fill: #23160f; stroke: var(--gold); stroke-width: 2.5; stroke-linejoin: round; }
+      .d20-line { fill: none; stroke: var(--gold); stroke-width: 1.2; opacity: 0.6; }
+      .d20-num { fill: var(--gold-bright); font-family: var(--heading); font-weight: 700; font-size: 20px; text-anchor: middle; }
+
+      .final { text-align: center; padding-bottom: 6rem; }
+      .btn {
+        display: inline-block; margin-top: 2rem; text-decoration: none;
+        font-family: var(--heading); font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; font-size: 0.9rem;
+        padding: 1rem 2rem; border-radius: 999px; color: var(--ink);
+        background: linear-gradient(180deg, var(--gold-bright), var(--gold));
+      }
+      .btn:hover { filter: brightness(1.1); }
+    </style>
+  </head>
+  <body>
+    <a class="back" href="/">← Back</a>
+
+    <main class="wrap">
+      <section class="hero">
+        <h1>You already know how to play.</h1>
+        <p>D&amp;D is a conversation. Someone tells you a story, and you decide what happens next.</p>
+      </section>
+
+      <section>
+        <h2>That's the whole game</h2>
+        <ol class="loop">
+          <li><span class="who" aria-hidden="true">📜</span><div><p class="label">The DM tells you</p><p class="say">what's happening.</p><p class="eg">"A goblin is stealing your horse."</p></div></li>
+          <li><span class="arrow" aria-hidden="true">↓</span></li>
+          <li class="you"><span class="who" aria-hidden="true">🙋</span><div><p class="label">You tell the DM</p><p class="say">what you want to do.</p><p class="eg">"I yell at it to stop!"</p></div></li>
+          <li><span class="arrow" aria-hidden="true">↓</span></li>
+          <li><span class="who" aria-hidden="true">📜</span><div><p class="label">The DM tells you</p><p class="say">what happens.</p><p class="eg">"It panics, drops the reins, and runs off with your sandwich instead."</p></div></li>
+        </ol>
+        <p class="repeat">↻ and again, and again.</p>
+      </section>
+
+      <section id="try">
+        <h2>Try it</h2>
+        <div class="chat" id="play">
+          <p><b>DM</b>A troll blocks the bridge. "Nobody crosses without paying the toll," it growls. What do you do?</p>
+        </div>
+        <div class="choices" id="choices">
+          <button data-c="sneak">Sneak past it</button>
+          <button data-c="talk">Talk my way across</button>
+          <button data-c="fight">Fight it</button>
+        </div>
+        <button class="die-btn" id="die-btn" hidden aria-label="Roll the twenty-sided die">
+          <svg class="die" id="die" viewBox="0 0 100 100" aria-hidden="true">
+            <polygon points="50,3 93,27 93,73 50,97 7,73 7,27" class="d20-face" />
+            <polygon points="50,24 79,70 21,70" class="d20-line" />
+            <path d="M50,3 L50,24 M93,27 L79,70 M93,27 L50,24 M93,73 L79,70 M50,97 L79,70 M50,97 L21,70 M7,73 L21,70 M7,27 L21,70 M7,27 L50,24" class="d20-line" />
+            <text x="50" y="59" class="d20-num" id="die-num">20</text>
+          </svg>
+          <span>Tap to roll</span>
+        </button>
+        <button class="again" id="again" hidden>Play again</button>
+        <p class="dim" style="margin-top:1.5rem">Notice you didn't need a single rule. You said what you wanted, rolled when asked, and the DM did the rest.</p>
+      </section>
+
+      <section>
+        <h2>The DM does the heavy lifting</h2>
+        <p style="margin-bottom:1.5rem">All the rules, numbers and tricky stuff live in the Dungeon Master's head. Your only job is to answer one question: <em>"What do you do?"</em></p>
+        <div class="split">
+          <div class="col dm">
+            <h3>The DM handles</h3>
+            <ul><li>The rules</li><li>The world</li><li>Every other character</li><li>The monsters</li><li>When to roll dice</li><li>What the dice mean</li></ul>
+          </div>
+          <div class="col you">
+            <h3>You handle</h3>
+            <ul><li>Saying what you do.</li></ul>
+          </div>
+        </div>
+        <p class="dim" style="margin-top:1.5rem">Sometimes the DM will say "roll this die." You roll it. The DM tells you what it means. That's it.</p>
+      </section>
+
+      <section>
+        <h2>What it sounds like</h2>
+        <div class="chat">
+          <p><b>DM</b>You walk into a tavern. A nervous old man waves you over.</p>
+          <p class="you"><b>You</b>I go sit with him.</p>
+          <p><b>DM</b>He whispers: "Something lives under the old mill. Please. I'll pay."</p>
+          <p class="you"><b>You</b>I ask how much.</p>
+          <p><b>DM</b>He slides you a bag of gold. Your adventure has begun.</p>
+        </div>
+        <p class="dim" style="margin-top:1.5rem">No rules talk. No homework. Just saying what your character does.</p>
+      </section>
+
+      <section class="final">
+        <h2>Nothing to learn. Nothing to bring.</h2>
+        <p>The DM brings the dice, the maps and the story. You bring yourself.</p>
+        <a class="btn" href="/#book">Find your table</a>
+      </section>
+    </main>
+
+    <script>
+      // ponytail: flat 10+ succeeds, no modifiers. The point is "roll when asked", not the math.
+      const SCENES = {
+        sneak: {
+          you: 'I try to sneak past it.',
+          ask: 'Okay! Roll the d20 to see how quiet you are.',
+          win: 'You tiptoe past while the troll picks its nose. You\'re across, and it never noticed.',
+          lose: 'A plank creaks. The troll spins around: "Oi! That\'s double toll for sneakers!"',
+        },
+        talk: {
+          you: 'I tell it I\'m a royal tax inspector, here to check its toll paperwork.',
+          ask: 'Bold. Roll the d20 to see if it believes you.',
+          win: 'The troll goes pale and starts apologizing. It waves you across and offers you a cookie.',
+          lose: 'The troll squints. "Trolls don\'t do paperwork." It crosses its massive arms.',
+        },
+        fight: {
+          you: 'I draw my sword and charge!',
+          ask: 'Roll the d20 to see if you hit.',
+          win: 'Your blade flashes and the troll stumbles back, roaring. It leaps off the bridge and swims away.',
+          lose: 'You swing and miss. The troll laughs, a deep, rumbling laugh, and raises its club.',
+        },
+      }
+      const play = document.getElementById('play')
+      const choices = document.getElementById('choices')
+      const dieBtn = document.getElementById('die-btn')
+      const die = document.getElementById('die')
+      const num = document.getElementById('die-num')
+      const again = document.getElementById('again')
+      const first = play.innerHTML
+      let scene
+
+      function say(who, text) {
+        const p = document.createElement('p')
+        if (who === 'You') p.className = 'you'
+        p.innerHTML = `<b>${who}</b>`
+        p.append(text)
+        play.append(p)
+      }
+
+      choices.addEventListener('click', e => {
+        const c = e.target.closest('button')?.dataset.c
+        if (!c) return
+        scene = SCENES[c]
+        choices.hidden = true
+        say('You', scene.you)
+        say('DM', scene.ask)
+        dieBtn.hidden = false
+      })
+
+      dieBtn.addEventListener('click', () => {
+        const r = 1 + Math.floor(Math.random() * 20)
+        die.classList.add('spin')
+        num.textContent = r
+        dieBtn.disabled = true
+        setTimeout(() => {
+          dieBtn.hidden = true
+          dieBtn.disabled = false
+          die.classList.remove('spin')
+          say('You', `I rolled a ${r}.`)
+          say('DM',
+            r === 20 ? 'A natural 20! The best possible roll. ' + scene.win + ' The bards will sing of this.' :
+            r === 1 ? 'A natural 1. Oh no. ' + scene.lose + ' Also, you dropped your boot in the river.' :
+            r >= 10 ? scene.win : scene.lose)
+          again.hidden = false
+        }, 650)
+      })
+
+      again.addEventListener('click', () => {
+        play.innerHTML = first
+        again.hidden = true
+        choices.hidden = false
+      })
+    </script>
+  </body>
+</html>

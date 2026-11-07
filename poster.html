@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet" />
+    <title>Play D&D Poster</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <style>
+      @page { size: A4; margin: 0; }
+      * { box-sizing: border-box; margin: 0; padding: 0; }
+      body { background: #ddd; font-family: 'EB Garamond', Georgia, serif; color: #111; }
+      .sheet {
+        width: 210mm; height: 297mm; margin: 2rem auto; background: #fff;
+        display: flex; flex-direction: column; align-items: center; justify-content: center;
+        text-align: center; padding: 20mm; gap: 12mm;
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.15);
+      }
+      .die { width: 34mm; height: 34mm; }
+      .d20-face { fill: none; stroke: #111; stroke-width: 2.5; stroke-linejoin: round; }
+      .d20-line { fill: none; stroke: #111; stroke-width: 1.2; opacity: 0.5; }
+      .d20-num { fill: #111; font-family: 'Cinzel', serif; font-weight: 700; font-size: 20px; text-anchor: middle; }
+      h1 { font-family: 'Cinzel', serif; font-weight: 700; font-size: 26mm; line-height: 1.05; }
+      .sub { font-size: 9mm; line-height: 1.35; }
+      #qr { padding: 4mm; border: 0.6mm solid #111; border-radius: 4mm; }
+      #qr img, #qr canvas { display: block; width: 55mm; height: 55mm; }
+      .scan { font-family: 'Cinzel', serif; font-size: 5.5mm; letter-spacing: 0.15em; text-transform: uppercase; }
+      .print { position: fixed; bottom: 1.5rem; right: 1.5rem; font: 600 1rem system-ui; padding: 0.8rem 1.4rem; border: 0; border-radius: 999px; background: #111; color: #fff; cursor: pointer; }
+      @media print {
+        body { background: #fff; }
+        .sheet { margin: 0; box-shadow: none; }
+        .print { display: none; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="sheet">
+      <svg class="die" viewBox="0 0 100 100" aria-hidden="true">
+        <polygon points="50,3 93,27 93,73 50,97 7,73 7,27" class="d20-face" />
+        <polygon points="50,24 79,70 21,70" class="d20-line" />
+        <path d="M50,3 L50,24 M93,27 L79,70 M93,27 L50,24 M93,73 L79,70 M50,97 L79,70 M50,97 L21,70 M7,73 L21,70 M7,27 L21,70 M7,27 L50,24" class="d20-line" />
+        <text x="50" y="59" class="d20-num">20</text>
+      </svg>
+      <h1>Want to play D&amp;D?</h1>
+      <p class="sub">Never played? Perfect.<br />Nothing to learn. Nothing to bring.</p>
+      <div id="qr"></div>
+      <p class="scan">Scan to see how easy it is</p>
+    </div>
+    <button class="print" onclick="print()">Print</button>
+
+    <script>
+      // ponytail: localhost is useless on a phone. Swap for the real domain before printing.
+      const TARGET = location.origin + '/guide.html'
+      new QRCode(document.getElementById('qr'), { text: TARGET, width: 512, height: 512, correctLevel: QRCode.CorrectLevel.M })
+    </script>
+  </body>
+</html>
