@@ -6,7 +6,7 @@ export const T = {
     swipe: 'Swipe',
     nav: { who: 'Who', what: 'What', quests: 'Quests', faq: 'FAQ', book: 'Book a Session' },
     hero: {
-      eyebrow: 'Professional Dungeon Master for Hire · D&D 5th Edition',
+      eyebrow: '📍 Bergen, Norway · Dungeon Master for Hire · D&D 5e',
       title: 'Your Legend Begins Here',
       sub: 'Gather your friends. I’ll bring the world, the dragons, the minis and the dice. A fully hosted Dungeons & Dragons adventure, written from scratch for your group. No experience needed, no homework, just a story that’s yours alone.',
       cta: 'Summon Your DM',
@@ -29,7 +29,7 @@ export const T = {
     parties: {
       eyebrow: 'Chapter I',
       title: 'Every Party Is Welcome',
-      lede: 'Small tables only. A handful of people who actually want to play, first-timers or veterans.',
+      lede: 'First-timers or veterans, best friends or near-strangers: everyone’s welcome. I keep tables small so everybody gets a real part in the story.',
       items: [
         ['🕯️', 'Total Beginners', 'Never rolled a die? Perfect. You’ll learn by playing, not by reading a 300-page rulebook.'],
         ['⚔️', 'Veteran Adventurers', 'Tired of being the forever-DM? Sit on the other side of the screen for once and just play.'],
@@ -196,7 +196,7 @@ export const T = {
         ['What edition do you run?', 'Dungeons & Dragons 5th Edition. It’s the friendliest edition for new players and still deep enough for veterans.'],
         ['Do we need to buy anything?', 'No. I bring dice, character sheets, miniatures, maps and everything else. You just need yourselves.'],
         ['How many people can play?', 'Up to 8, and 4–6 is the sweet spot. I keep tables small on purpose so everyone gets real time in the spotlight.'],
-        ['Where do we play?', 'At your place, a venue of your choosing, or online. Tell me what works and we’ll make it happen.'],
+        ['Where do we play?', 'I’m based in Bergen and come to you anywhere in Bergen and the surrounding area: your home, an office or a venue of your choosing. Outside Bergen? We play online. Tell me what works and we’ll make it happen.'],
         ['Is it okay for people who don’t know each other?', 'Absolutely. We set boundaries together in session zero and use safety tools at the table, so everyone feels comfortable and the game stays fun.'],
         ['How does payment work?', 'Once I confirm your date, you pay a 50% deposit via Vipps to lock it in. The rest is paid via Vipps on the day.'],
         ['What if I need to cancel?', 'Free rescheduling up to 48 hours before the session. Cancel later than that and the deposit covers the prep already done. If I ever have to cancel, you get a full refund or a new date. Life happens, even to heroes.'],
@@ -205,7 +205,7 @@ export const T = {
     },
     final: {
       title: 'The Dragon Won’t Slay Itself',
-      sub: 'Spots at the table are limited. Claim yours before the next full moon.',
+      sub: 'However much or little you’ve played, there’s a seat at the table for you.',
       cta: 'Roll for Initiative',
     },
     footer: {
@@ -218,7 +218,7 @@ export const T = {
     swipe: 'Sveip',
     nav: { who: 'Hvem', what: 'Hva', quests: 'Oppdrag', faq: 'Spørsmål', book: 'Book en økt' },
     hero: {
-      eyebrow: 'Profesjonell Dungeon Master til leie · D&D 5. utgave',
+      eyebrow: '📍 Bergen · Dungeon Master til leie · D&D 5e',
       title: 'Din legende begynner her',
       sub: 'Samle vennene dine. Jeg tar med verdenen, dragene, figurene og terningene. Et komplett Dungeons & Dragons-eventyr, skrevet fra bunnen av for akkurat dere. Ingen erfaring nødvendig, ingen lekser, bare en historie som er helt deres.',
       cta: 'Tilkall din DM',
@@ -227,10 +227,10 @@ export const T = {
       rollAria: 'Kast en tjuesidet terning',
       roll: (n) =>
         n === 20 ? 'NATURLIG 20! Eventyret venter på deg.'
-        : n === 1 ? 'Kritisk bom… du trenger nok en DM.'
+        : n === 1 ? 'Kritisk bom… kanskje du trenger en DM.'
         : n >= 15 ? `${n}. Gudene smiler til deg.`
         : n >= 8 ? `${n}. Respektabelt. Eventyret kaller.`
-        : `${n}. Au. Du trenger et følge.`,
+        : `${n}. Au. Du trenger noen å spille med.`,
     },
     stats: [
       ['5+', 'År bak skjermen'],
@@ -240,18 +240,18 @@ export const T = {
     ],
     parties: {
       eyebrow: 'Kapittel I',
-      title: 'Alle følger er velkomne',
-      lede: 'Kun små bord. En håndfull folk som faktisk har lyst til å spille, enten dere er nye eller erfarne.',
+      title: 'Alle er velkomne ved bordet',
+      lede: 'Nybegynner eller veteran, bestevenner eller nesten fremmede: alle er velkomne. Jeg holder bordene små, så alle får en ordentlig plass i historien.',
       items: [
         ['🕯️', 'Helt nybegynnere', 'Aldri kastet en terning? Perfekt. Du lærer ved å spille, ikke ved å lese en regelbok på 300 sider.'],
         ['⚔️', 'Erfarne eventyrere', 'Lei av å alltid være DM? Sett deg på den andre siden av skjermen for en gangs skyld og bare spill.'],
         ['🍺', 'Den faste gjengen', 'Samme folk, samme bord, hver uke eller annenhver. Den typen gruppe der de interne vitsene begynner å skrive historien.'],
-        ['🌍', 'Spill på nett', 'Spredt over hele riket? Vi spiller over tale og virtuelt spillbord, med like stor innlevelse.'],
+        ['🌍', 'Spill på nett', 'Spredt over hele riket? Vi spiller med talechat og et virtuelt spillbord, med like stor innlevelse.'],
       ],
     },
     oath: {
-      eyebrow: 'Dungeon Masterens ed',
-      title: 'Ingen følger spiller noen gang samme historie',
+      eyebrow: 'Dungeon Masterens løfte',
+      title: 'Ingen grupper spiller samme historie',
       text: 'Jeg kjører ikke ferdigkjøpte eventyr. Hver kampanje smis fra bunnen av for akkurat dere: heltenes bakgrunnshistorier vevd inn i verdenen, skurker formet av valgene deres, interne vitser gjemt på vertshusskiltene. Når fortellingen er over, er den deres.',
       points: ['Skrevet fra bunnen av for følget deres', 'Bygget rundt heltene og smaken deres', 'Aldri gjenbrukt for et annet bord'],
     },
@@ -260,13 +260,13 @@ export const T = {
       title: 'Møt din Dungeon Master',
       body: [
         'Jeg har ledet spillbord i over fem år: i kjellere, stuer og på Discord klokka to om natta. Jeg har sett sjenerte nybegynnere bli fryktløse paladiner, og voksne folk skrike til en goblin med armbrøst.',
-        'Jobben min er enkel. Alle rundt bordet skal få et øyeblikk der de føler seg som helten. Jeg gjør stemmene, maler figurene, bygger verdenen og holder reglene unna, så alt du trenger å gjøre er å bestemme hva karakteren din gjør videre.',
+        'Jobben min er enkel. Alle rundt bordet skal få et øyeblikk der de føler seg som helten. Jeg gjør stemmene, maler figurene, bygger verdenen og holder reglene i bakgrunnen, så alt du trenger å gjøre er å bestemme hva karakteren din gjør videre.',
       ],
       sign: '— Andreas, din Dungeon Master',
     },
     loot: {
       eyebrow: 'Kapittel II',
-      title: 'Innholdet i Bag of Holding',
+      title: 'Dette tar jeg med',
       lede: 'Alt du trenger for en legendarisk kveld, pakket og klart. Dere tar med dere selv. Jeg tar med resten.',
       items: [
         ['En komplett kampanje', 'Verdensbygging, handling, skurker, stemmer og tempo. Jeg styrer alt, så dere bare kan møte opp og spille.'],
@@ -290,24 +290,24 @@ export const T = {
     quests: {
       eyebrow: 'Kapittel IV',
       title: 'Velg ditt oppdrag',
-      lede: 'Prisene gjelder hele gruppa, ikke per spiller. Hver økt inkluderer timene med planlegging bak. Alt i Bag of Holding er inkludert.',
+      lede: 'Prisene gjelder hele gruppa, ikke per spiller. Hver økt inkluderer timene med planlegging bak. Alt utstyret er inkludert.',
       featured: 'Mest valgt',
       cta: 'Book dette oppdraget',
       items: [
         { tier: 'Cantrip', name: 'One-shot: én kveld', price: '3 900 kr', unit: '/ gruppe', perPlayer: '≈ 780 kr per spiller med 5 spillere', text: 'Ett helt eventyr på én kveld, rundt 4 timer, fra start til slutt. Perfekt for nybegynnere, eller for å se om gruppa funker sammen.', prep: 'Inkluderer ca. 6 timer forberedelse: et skreddersydd eventyr, kart og malte figurer til bordet deres.', perks: ['Helt nytt eventyr', 'Figurer og kart inkludert', 'Opptil 8 spillere'] },
-        { tier: '3. nivå', name: 'Kampanje: flere kvelder', price: '2 900 kr', unit: '/ økt', perPlayer: '≈ 580 kr per spiller med 5 spillere', text: 'En historie over flere økter med tilbakevendende skurker, karakterutvikling og vendinger som lønner seg. Min. 4 økter.', prep: 'Inkluderer verdensbygging før start og ny forberedelse mellom hver økt, formet av det følget har gjort.', perks: ['Gratis økt null', 'Skrevet fra bunnen av for dere', 'Ukentlig eller annenhver uke'], featured: true },
+        { tier: '3. nivå', name: 'Kampanje: flere kvelder', price: '2 900 kr', unit: '/ økt', perPlayer: '≈ 580 kr per spiller med 5 spillere', text: 'En historie over flere økter med tilbakevendende skurker, karakterutvikling og overraskelser som faller på plass. Min. 4 økter.', prep: 'Inkluderer verdensbygging før start og ny forberedelse mellom hver økt, formet av det følget har gjort.', perks: ['Gratis økt null', 'Skrevet fra bunnen av for dere', 'Ukentlig eller annenhver uke'], featured: true },
       ],
     },
     gift: {
       eyebrow: 'En gave for legender',
       title: 'Gi bort et eventyr',
-      text: 'Bursdag, jul, utdrikningslag. Et gavekort på en one-shot, én kveld med eventyr, er gaven ingen andre kom på.',
+      text: 'Bursdag, jul, utdrikningslag. Et gavekort på en eventyrkveld er gaven ingen andre kom på.',
       cta: 'Bestill gavekort',
     },
     book: {
       eyebrow: 'Kapittel V',
-      title: 'Smi ditt oppdrag',
-      lede: 'Form eventyret ditt i fem raske steg. Andreas leser skriftrullen din, forbereder verdenen og serverer den ved bordet deres.',
+      title: 'Lag ditt eventyr',
+      lede: 'Sett sammen eventyret ditt i noen raske steg. Andreas leser skriftrullen din, forbereder verdenen og serverer den ved bordet deres.',
       steps: ['Oppdrag', 'Følge', 'Helter', 'Tema', 'Bord', 'Skriftrull'],
       back: 'Tilbake',
       next: 'Fortsett',
@@ -354,7 +354,7 @@ export const T = {
           classes: [
             ['fighter', '⚔️', 'Kriger', 'Våpenmester, først inn i kampen'],
             ['wizard', '🧙', 'Trollmann', 'Bøyer virkeligheten med magi'],
-            ['rogue', '🗝️', 'Skurk', 'Snik, list og dirkede låser'],
+            ['rogue', '🗝️', 'Tyv', 'Snik, list og dirkede låser'],
             ['cleric', '✨', 'Prest', 'Helbreder venner, knuser fiender'],
             ['bard', '🎻', 'Bard', 'Sjarmerer og prater seg ut av alt'],
             ['ranger', '🏹', 'Jeger', 'Sporfinner og bueskytter i villmarka'],
@@ -379,7 +379,7 @@ export const T = {
           where: [
             ['home', '🏠', 'Hjemme hos oss', 'Andreas tar med bordet til dere'],
             ['venue', '🍻', 'Et annet sted', 'Kafé, spillrom eller lignende'],
-            ['online', '🌐', 'På nett', 'Tale + virtuelt spillbord'],
+            ['online', '🌐', 'På nett', 'Talechat + virtuelt spillbord'],
           ],
           date: 'Ønsket dato',
           time: 'Starttidspunkt',
@@ -407,20 +407,20 @@ export const T = {
         ['Hvilken utgave spiller du?', 'Dungeons & Dragons 5. utgave. Den er den mest nybegynnervennlige, men har fortsatt nok dybde for veteraner.'],
         ['Må vi kjøpe noe?', 'Nei. Jeg tar med terninger, karakterark, figurer, kart og alt annet. Dere trenger bare dere selv.'],
         ['Hvor mange kan spille?', 'Opptil 8, og 4–6 er det ideelle. Jeg holder bordene små med vilje, så alle får skikkelig tid i rampelyset.'],
-        ['Hvor spiller vi?', 'Hjemme hos dere, et sted dere velger, eller på nett. Si hva som passer, så får vi det til.'],
+        ['Hvor spiller vi?', 'Jeg holder til i Bergen og kommer til dere i Bergen og omegn: hjemme, på kontoret eller et lokale dere velger. Bor dere utenfor Bergen? Da spiller vi på nett. Si hva som passer, så får vi det til.'],
         ['Går det fint for folk som ikke kjenner hverandre?', 'Absolutt. Vi setter grenser sammen i økt null og bruker trygghetsverktøy rundt bordet, så alle føler seg komfortable og spillet holder seg gøy.'],
         ['Hvordan fungerer betalingen?', 'Når jeg har bekreftet datoen, betaler dere 50 % depositum med Vipps for å sikre den. Resten betales med Vipps samme dag.'],
-        ['Hva om jeg må avlyse?', 'Gratis ombooking frem til 48 timer før økten. Avlyser dere senere, dekker depositumet forberedelsene som allerede er gjort. Må jeg avlyse, får dere full refusjon eller ny dato. Livet skjer, selv for helter.'],
+        ['Hva om jeg må avlyse?', 'Gratis ombooking frem til 48 timer før økten. Avlyser dere senere, dekker depositumet forberedelsene som allerede er gjort. Må jeg avlyse, får dere full refusjon eller ny dato. Ting skjer, selv for helter.'],
         ['Hva om noen i gruppa ikke liker fantasy?', 'Gi meg én økt. I verste fall får de være barden som fornærmer dragen.'],
       ],
     },
     final: {
       title: 'Dragen dreper ikke seg selv',
-      sub: 'Plassene rundt bordet er begrenset. Sikre deg din før neste fullmåne.',
+      sub: 'Uansett hvor mye eller lite du har spilt, er det en plass til deg rundt bordet.',
       cta: 'Kast for initiativ',
     },
     footer: {
-      made: 'Laget ved stearinlys',
+      made: 'Laget ved levende lys',
       legal: 'Dungeons & Dragons er et varemerke som tilhører Wizards of the Coast. Dette er en uavhengig tjeneste, ikke tilknyttet eller godkjent av Wizards of the Coast.',
     },
   },
