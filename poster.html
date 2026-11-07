@@ -30,10 +30,11 @@
         text-align: center; padding: 22mm 20mm 24mm; gap: 8mm;
         box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
       }
-      /* Kittelsen's Soria Moria fading into the dark, like the site's hero art. */
+      /* Rackham's Fafnir (public domain) fading into the dark, like the site's hero art. */
       .art {
         position: absolute; inset: 0 0 auto; height: 135mm;
-        background: url('/art/pd/soria-moria.jpg') center 30% / cover;
+        background: url('/art/pd/fafnir.jpg') 70% 35% / cover;
+        filter: sepia(0.4) brightness(0.85);
         -webkit-mask-image: linear-gradient(#000 40%, transparent);
         mask-image: linear-gradient(#000 40%, transparent);
         opacity: 0.75;
