@@ -134,7 +134,7 @@ export default function App() {
 
       gsap.utils.toArray('.reveal-group').forEach((group) => {
         gsap.from(group.children, {
-          y: 60, opacity: 0, rotateX: -15, stagger: 0.1, duration: 0.9, ease: 'power3.out',
+          y: 40, opacity: 0, stagger: 0.1, duration: 0.9, ease: 'power3.out',
           scrollTrigger: { trigger: group, start: 'top 80%' },
         })
       })
@@ -254,7 +254,7 @@ export default function App() {
 
       <section id="parties" className="section">
         <SectionHead {...t.parties} />
-        <div className="grid reveal-group">
+        <div className="grid grid-parties reveal-group">
           {t.parties.items.map(([icon, title, text], i) => (
             <article key={i} className="card">
               <span className="card-icon" aria-hidden="true">{icon}</span>
