@@ -3,6 +3,7 @@
 
 export const T = {
   en: {
+    swipe: 'Swipe',
     nav: { who: 'Who', what: 'What', quests: 'Quests', faq: 'FAQ', book: 'Book a Session' },
     hero: {
       eyebrow: 'Professional Dungeon Master for Hire · D&D 5th Edition',
@@ -215,6 +216,7 @@ export const T = {
   },
 
   no: {
+    swipe: 'Sveip',
     nav: { who: 'Hvem', what: 'Hva', quests: 'Oppdrag', faq: 'Spørsmål', book: 'Book en økt' },
     hero: {
       eyebrow: 'Profesjonell Dungeon Master til leie · D&D 5. utgave',

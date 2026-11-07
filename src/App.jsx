@@ -81,6 +81,15 @@ export default function App() {
     try { localStorage.setItem('lang', lang) } catch { /* storage blocked */ }
   }, [lang])
 
+  // Mobile book button shows only while the hero's own buttons are off screen
+  useEffect(() => {
+    const ctas = document.querySelector('.hero-ctas')
+    const btn = document.querySelector('.sticky-cta')
+    const io = new IntersectionObserver(([e]) => btn.classList.toggle('show', !e.isIntersecting))
+    io.observe(ctas)
+    return () => io.disconnect()
+  }, [])
+
   useGSAP(() => {
     const mm = gsap.matchMedia()
     mm.add('(prefers-reduced-motion: no-preference)', () => {
@@ -250,6 +259,7 @@ export default function App() {
             </article>
           ))}
         </div>
+        <p className="swipe-hint" aria-hidden="true">{t.swipe} →</p>
       </section>
 
       <section className="oath">
@@ -290,6 +300,7 @@ export default function App() {
             </article>
           ))}
         </div>
+        <p className="swipe-hint" aria-hidden="true">{t.swipe} →</p>
       </section>
 
       <section className="section">
@@ -327,6 +338,7 @@ export default function App() {
             </article>
           ))}
         </div>
+        <p className="swipe-hint" aria-hidden="true">{t.swipe} →</p>
       </section>
 
       <section className="gift">
