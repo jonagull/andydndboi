@@ -6,7 +6,7 @@ export const T = {
     swipe: 'Swipe',
     nav: { who: 'Who', what: 'What', quests: 'Quests', faq: 'FAQ', book: 'Book a Session' },
     hero: {
-      eyebrow: '📍 Bergen, Norway · Dungeon Master for Hire · D&D 5e',
+      eyebrow: '📍 Bergen, Norway · Dungeon Master for Hire',
       title: 'Your Legend Begins Here',
       sub: 'Gather your friends. I’ll bring the world, the dragons, the minis and the dice. A fully hosted Dungeons & Dragons adventure, written from scratch for your group. No experience needed, no homework, just a story that’s yours alone.',
       cta: 'Summon Your DM',
@@ -218,7 +218,7 @@ export const T = {
     swipe: 'Sveip',
     nav: { who: 'Hvem', what: 'Hva', quests: 'Oppdrag', faq: 'Spørsmål', book: 'Book en økt' },
     hero: {
-      eyebrow: '📍 Bergen · Dungeon Master til leie · D&D 5e',
+      eyebrow: '📍 Bergen · Dungeon Master til leie',
       title: 'Din legende begynner her',
       sub: 'Samle vennene dine. Jeg tar med verdenen, dragene, figurene og terningene. Et komplett Dungeons & Dragons-eventyr, skrevet fra bunnen av for akkurat dere. Ingen erfaring nødvendig, ingen lekser, bare en historie som er helt deres.',
       cta: 'Tilkall din DM',
@@ -246,7 +246,7 @@ export const T = {
         ['🕯️', 'Helt nybegynnere', 'Aldri kastet en terning? Perfekt. Du lærer ved å spille, ikke ved å lese en regelbok på 300 sider.'],
         ['⚔️', 'Erfarne eventyrere', 'Lei av å alltid være DM? Sett deg på den andre siden av skjermen for en gangs skyld og bare spill.'],
         ['🍺', 'Den faste gjengen', 'Samme folk, samme bord, hver uke eller annenhver. Den typen gruppe der de interne vitsene begynner å skrive historien.'],
-        ['🌍', 'Spill på nett', 'Spredt over hele riket? Vi spiller med talechat og et virtuelt spillbord, med like stor innlevelse.'],
+        ['🌍', 'Spill på nett', 'Spredt over hele riket? Vi spiller på Discord med et virtuelt spillbord, med like stor innlevelse.'],
       ],
     },
     oath: {
@@ -379,7 +379,7 @@ export const T = {
           where: [
             ['home', '🏠', 'Hjemme hos oss', 'Andreas tar med bordet til dere'],
             ['venue', '🍻', 'Et annet sted', 'Kafé, spillrom eller lignende'],
-            ['online', '🌐', 'På nett', 'Talechat + virtuelt spillbord'],
+            ['online', '🌐', 'På nett', 'Discord + virtuelt spillbord'],
           ],
           date: 'Ønsket dato',
           time: 'Starttidspunkt',

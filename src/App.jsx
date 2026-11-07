@@ -77,7 +77,7 @@ export default function App() {
 
   useEffect(() => {
     document.documentElement.lang = lang === 'no' ? 'nb' : 'en'
-    document.title = lang === 'no' ? `${BRAND} – Dungeon Master til leie` : `${BRAND} – Dungeon Master for hire`
+    document.title = lang === 'no' ? `${BRAND} – Dungeon Master i Bergen` : `${BRAND} – Dungeon Master in Bergen, Norway`
     try { localStorage.setItem('lang', lang) } catch { /* storage blocked */ }
   }, [lang])
 
