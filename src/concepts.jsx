@@ -202,14 +202,6 @@ function Concepts() {
       <ArtHero />
       <Bestiary />
       <Gallery />
-      {/* Drop AI/illustrated art into public/art/before.jpg + after.jpg (same size + framing). */}
-      <BeforeAfter
-        eyebrow="Concept A · Painted"
-        title="Before & After, Painted"
-        text="Same slider, real artwork. Generate the two images, save them as public/art/before.jpg and public/art/after.jpg, and they show up here."
-        before={<img className="ba-img" src="/art/before.jpg" alt="An ordinary game night around a table" />}
-        after={<img className="ba-img" src="/art/after.jpg" alt="The same table transformed into a magical adventure" />}
-      />
       <BeforeAfter
         eyebrow="Concept A"
         title="Before & After Slider"
