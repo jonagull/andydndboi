@@ -120,12 +120,17 @@ h1, h2, h3 { font-family: var(--heading); font-weight: 700; line-height: 1.15; }
   font-family: var(--display); font-weight: 900;
   font-size: clamp(2rem, 10vw, 6.2rem);
   margin: 1.2rem 0 1.5rem;
-  background: linear-gradient(180deg, var(--gold-bright) 20%, var(--gold) 55%, #8a5a1c);
-  -webkit-background-clip: text; background-clip: text; color: transparent;
+  color: var(--gold-bright); /* fallback if background-clip: text is unsupported */
   filter: drop-shadow(0 4px 20px rgba(158, 27, 27, 0.6));
 }
 .hero-title .word { display: inline-block; white-space: nowrap; margin: 0 0.18em; overflow: hidden; padding-bottom: 0.08em; }
-.hero-title .char { display: inline-block; background: inherit; -webkit-background-clip: text; background-clip: text; }
+/* Gradient lives on each char: iOS Safari won't paint a parent's clipped-text gradient through transformed inline-block children. */
+.hero-title .char {
+  display: inline-block;
+  background: linear-gradient(180deg, var(--gold-bright) 20%, var(--gold) 55%, #8a5a1c);
+  -webkit-background-clip: text; background-clip: text;
+  color: transparent; -webkit-text-fill-color: transparent;
+}
 .hero-sub { max-width: 640px; font-size: 1.3rem; color: var(--parchment-dim); }
 .hero-ctas { display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; margin-top: 2.2rem; }
 .roller {
