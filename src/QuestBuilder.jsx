@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import gsap from 'gsap'
 import { useGSAP } from '@gsap/react'
 import { quote, isoInDays, MIN_DAYS } from './pricing'
@@ -38,6 +38,12 @@ export default function QuestBuilder({ t, email, bookingUrl, dmName, initialDate
   const [a, setA] = useState({ ...START, date: initialDate })
   const panel = useRef(null)
   const set = (k) => (v) => setA((s) => ({ ...s, [k]: v }))
+  // Map preview follows the address, but only once typing pauses.
+  const [mapQ, setMapQ] = useState('')
+  useEffect(() => {
+    const id = setTimeout(() => setMapQ(a.address.trim()), 800)
+    return () => clearTimeout(id)
+  }, [a.address])
   const toggleClass = (id) => setA((s) => ({ ...s, classes: s.classes.includes(id) ? s.classes.filter((c) => c !== id) : [...s.classes, id] }))
 
   useGSAP(() => {
@@ -63,13 +69,14 @@ export default function QuestBuilder({ t, email, bookingUrl, dmName, initialDate
     [t.scroll.tone, `${100 - a.tone}% ${q.tone.left} / ${a.tone}% ${q.tone.right}`],
     [t.scroll.where, a.where ? label(q.table.where, a.where) : '—'],
     ...(inPerson ? [[t.scroll.address, a.address || '—']] : []),
-    [t.scroll.date, [a.date, a.time].filter(Boolean).join(' ') || '—'],
+    [t.scroll.date, [a.date, a.time === 'flex' ? q.table.flexible : a.time].filter(Boolean).join(' ') || '—'],
     ...(priceText ? [[t.scroll.price, priceText]] : []),
   ]
   const body = [
     t.scroll.greeting(dmName),
     '',
     ...summary.map(([k, v]) => `${k}: ${v}`),
+    ...(inPerson && a.address ? [`${t.scroll.map}: https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(a.address)}`] : []),
     ...(a.notes ? ['', `${t.scroll.notes}: ${a.notes}`] : []),
     '',
     a.name || '',
@@ -126,9 +133,13 @@ export default function QuestBuilder({ t, email, bookingUrl, dmName, initialDate
           <Choice options={q.table.where} value={a.where} onPick={set('where')} />
           <div className="qb-fields">
             <label>{q.table.date}<input type="date" min={isoInDays(MIN_DAYS)} value={a.date} onChange={(e) => set('date')(e.target.value)} /></label>
-            <label>{q.table.time}<input type="time" step={900} value={a.time} onChange={(e) => set('time')(e.target.value)} /></label>
+            <div className="qb-field wide" role="group" aria-label={q.table.time}>{q.table.time}
+              <Choice small options={[...q.table.times.map((h) => [h, null, h]), ['flex', null, q.table.flexible]]} value={a.time} onPick={set('time')} />
+            </div>
             <p className="qb-price wide" aria-live="polite">{priceText || t.price.hint}</p>
             {inPerson && <label className="wide">{q.table.address}<input type="text" maxLength={200} autoComplete="street-address" placeholder={q.table.addressPlaceholder} value={a.address} onChange={(e) => set('address')(e.target.value)} /></label>}
+            {/* ponytail: keyless Google embed, swap for the official Embed API (free key) if Google ever blocks it */}
+            {inPerson && mapQ.length > 5 && <iframe className="qb-map wide" title={q.table.address} loading="lazy" src={`https://maps.google.com/maps?q=${encodeURIComponent(mapQ)}&z=15&output=embed`} />}
             <label>{q.table.name}<input type="text" maxLength={80} value={a.name} onChange={(e) => set('name')(e.target.value)} /></label>
             <label className="wide">{q.table.notes}<textarea rows={3} maxLength={1000} placeholder={q.table.notesPlaceholder} value={a.notes} onChange={(e) => set('notes')(e.target.value)} /></label>
           </div>

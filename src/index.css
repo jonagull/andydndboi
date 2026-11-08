@@ -386,8 +386,9 @@ h1, h2, h3 { font-family: var(--heading); font-weight: 700; line-height: 1.15; }
 .qb-tone input { flex: 1; accent-color: var(--gold); }
 
 .qb-fields { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1.8rem; }
-.qb-fields label { display: grid; gap: 0.4rem; font-family: var(--heading); font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold); }
+.qb-fields label, .qb-field { display: grid; gap: 0.4rem; font-family: var(--heading); font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold); }
 .qb-fields .wide { grid-column: 1 / -1; }
+.qb-map { width: 100%; height: 260px; border: 1px solid var(--gold); filter: sepia(0.3) brightness(0.9); }
 .qb-fields input, .qb-fields textarea {
   font: inherit; font-family: var(--body); font-size: 1.05rem; letter-spacing: 0; text-transform: none;
   padding: 0.7rem 0.9rem; color: var(--parchment); color-scheme: dark;
